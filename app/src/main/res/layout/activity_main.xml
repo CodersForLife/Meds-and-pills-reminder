@@ -14,7 +14,7 @@
         android:weightSum="3"
         android:layout_weight="1">
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"/>
         <LinearLayout
@@ -27,9 +27,11 @@
             android:orientation="vertical"></LinearLayout>
     </LinearLayout>
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
         android:orientation="vertical"
+
         android:layout_weight="1"
         android:weightSum="2">
         <LinearLayout
@@ -48,12 +50,15 @@
      <Button
          android:layout_width="match_parent"
          android:layout_height="match_parent"
-         android:layout_weight="1"
+         android:layout_weight="1.5"
+         android:layout_marginTop="10dp"
          android:textSize="20sp"
+         android:id="@+id/skip"
+        android:layout_gravity="center_horizontal"
          android:text="SKIP"
          android:textColor="@color/white"
          android:background="@drawable/button_prop"
-         android:layout_margin="35dp"/>
+         />
     </LinearLayout>
 
 </LinearLayout>
