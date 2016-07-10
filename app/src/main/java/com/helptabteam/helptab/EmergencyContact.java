@@ -23,7 +23,7 @@ public class EmergencyContact extends AppCompatActivity {
         name2= (EditText) findViewById(R.id.name2);
         phone2= (EditText) findViewById(R.id.phone2);
         email2= (EditText) findViewById(R.id.email2);
-        skip.setOnClickListener(new View.OnClickListener() {
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences preferences =getSharedPreferences("Pref",MODE_PRIVATE);
@@ -34,10 +34,12 @@ public class EmergencyContact extends AppCompatActivity {
                 editor.putString("name2",name2.getText().toString());
                 editor.putString("phone2",phone2.getText().toString());
                 editor.putString("email2",email2.getText().toString());
+                editor.apply();
+                editor.commit();
                 startActivity(new Intent(EmergencyContact.this,HomeActivity.class));
             }
         });
-        save.setOnClickListener(new View.OnClickListener() {
+        skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(EmergencyContact.this,HomeActivity.class));

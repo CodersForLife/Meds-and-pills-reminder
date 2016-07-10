@@ -17,6 +17,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider
+            android:name=".generated.QuoteProvider"
+            android:exported="true"
+            android:authorities="com.helptabteam.helptab.QuoteProvider" />
+
         <activity android:name=".EmergencyContact" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".AddNewDescription"></activity>
