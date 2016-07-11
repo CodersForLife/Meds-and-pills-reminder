@@ -23,7 +23,8 @@
             android:authorities="com.helptabteam.helptab.QuoteProvider" />
 
         <activity android:name=".EmergencyContact" />
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".HomeActivity"
+            android:label="  HelpTab"/>
         <activity android:name=".AddNewDescription"></activity>
     </application>
 

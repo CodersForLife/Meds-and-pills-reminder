@@ -5,13 +5,18 @@ import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     FloatingActionButton add;
@@ -23,6 +28,8 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.iconslogo);
         recyclerView= (RecyclerView) findViewById(R.id.card);
         recyclerView.setHasFixedSize(true);
         linearLayoutManager=new LinearLayoutManager(getApplicationContext());
@@ -68,5 +75,42 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         myListCursorAdapter.swapCursor(null);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+
+        switch (id) {
+
+            /*case R.id.edit_detail:
+                Intent intent = new Intent(HomeActivity.this, FirstScreen.class);
+                startActivity(intent);
+                return true;*/
+            case R.id.call:
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                final SharedPreferences sp=getSharedPreferences("Pref",MODE_PRIVATE);
+                callIntent.setData(Uri.parse("tel:"+sp.getString("phone1","")));
+                try {
+                    if(sp.getString("phone1","").equalsIgnoreCase(""))
+                        Toast.makeText(getApplicationContext(),"No number added ",Toast.LENGTH_SHORT).show();
+                    else
+                        startActivity(callIntent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
