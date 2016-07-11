@@ -1,6 +1,7 @@
 package com.helptabteam.helptab;
 
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -30,10 +31,16 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         add= (FloatingActionButton) findViewById(R.id.add_new);
         Cursor cursor=getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,null,null,null,null);
         getLoaderManager().initLoader(0, null, this);
+        /*ContentValues contentValues=new ContentValues();
+        contentValues.put(QuoteColumns.TITLE, "Fever Medicine For Dad");
+        contentValues.put(QuoteColumns.DESCRIPTION,"Monday and Sumday 3 times a day");
+        contentValues.put(QuoteColumns.START,"Daily dosage-Started from: 8th Jul,2016");
+        getContentResolver().insert(QuoteProvider.Quotes.CONTENT_URI,contentValues);*/
         //if(cursor.getCount()>0) {
             myListCursorAdapter = new MyListCursorAdapter(this, cursor);
             recyclerView.setAdapter(myListCursorAdapter);
         //}
+
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override

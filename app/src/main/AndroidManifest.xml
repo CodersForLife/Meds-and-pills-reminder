@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/iconslogo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -19,7 +19,7 @@
         </activity>
         <provider
             android:name=".generated.QuoteProvider"
-            android:exported="true"
+
             android:authorities="com.helptabteam.helptab.QuoteProvider" />
 
         <activity android:name=".EmergencyContact" />

@@ -17,20 +17,24 @@ import java.util.List;
  * Created by skyfishjy on 10/31/14.
  */
 public class MyListCursorAdapter extends CursorRecyclerViewAdapter<MyListCursorAdapter.ViewHolder>{
-
+    public Context context;
     public MyListCursorAdapter(Context context,Cursor cursor){
         super(context,cursor);
+        this.context=context;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
         public TextView description;
+        public ImageView delete;
         public TextView dosage;
+
         public ViewHolder(View view) {
             super(view);
             title= (TextView) view.findViewById(R.id.title);
             description= (TextView) view.findViewById(R.id.decription);
             dosage= (TextView) view.findViewById(R.id.dosage);
+            delete= (ImageView) view.findViewById(R.id.delete);
         }
     }
 
@@ -43,8 +47,16 @@ public class MyListCursorAdapter extends CursorRecyclerViewAdapter<MyListCursorA
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, Cursor cursor) {
+    public void onBindViewHolder(ViewHolder viewHolder, final Cursor cursor) {
         //MyListItem myListItem = MyListItem.fromCursor(cursor);
-        viewHolder.title.setText(cursor.getString(3));
+        viewHolder.title.setText(cursor.getString(cursor.getColumnIndex("title")));
+        viewHolder.description.setText(cursor.getString(cursor.getColumnIndex("description")));
+        viewHolder.dosage.setText(cursor.getString(cursor.getColumnIndex("start")));
+        viewHolder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.getContentResolver().delete(QuoteProvider.Quotes.CONTENT_URI,QuoteColumns._ID + " = ?",new String[]{cursor.getString(cursor.getColumnIndex("_id"))});
+            }
+        });
     }
 }
