@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -23,6 +24,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private Cursor mCursor;
+    private TextView textView;
     private MyListCursorAdapter myListCursorAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.iconslogo);
         recyclerView= (RecyclerView) findViewById(R.id.card);
+        textView= (TextView) findViewById(R.id.text);
         recyclerView.setHasFixedSize(true);
         linearLayoutManager=new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -68,8 +71,11 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         myListCursorAdapter.swapCursor(data);
         mCursor=data;
         if(myListCursorAdapter.getItemCount()==0){
-            //TODO as wanted
+            textView.setVisibility(View.VISIBLE);
+            textView.setText("Add new HEALTHTAB");
         }
+        else
+            textView.setVisibility(View.GONE);
     }
 
     @Override
