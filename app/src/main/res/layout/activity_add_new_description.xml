@@ -24,15 +24,17 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:padding="5dp"
+            android:id="@+id/title"
             android:background="@android:color/transparent"
             android:paddingLeft="5dp"
-            android:text="Title:"/>
+            android:hint="Title:"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Compose Description:"
+            android:hint="Compose Description:"
             android:background="@android:color/transparent"
             android:padding="5dp"
+            android:id="@+id/decription"
             android:paddingLeft="5dp"
             android:lines="3"
             android:ems="3"/>
@@ -68,21 +70,27 @@
             android:textAlignment="center"
             android:textSize="25dp"/>
 
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:textSize="20dp"
+            android:id="@+id/date"
+            android:textColor="@color/colorPrimary"
             android:padding="10dp"
             android:paddingLeft="5dp"
             android:background="@android:color/transparent"
             android:text="Date:"/>
 
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
             android:text="Time:"
+            android:id="@+id/time"
             android:padding="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp"
             android:background="@android:color/transparent"
             android:paddingLeft="5dp"
             android:layout_marginBottom="30dp"/>
@@ -112,6 +120,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save"
+        android:id="@+id/save"
         android:textAlignment="center"
         android:background="#8accff"
         android:textColor="#ffffff"
