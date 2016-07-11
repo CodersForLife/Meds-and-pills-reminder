@@ -32,7 +32,7 @@
         android:background="@color/colorPrimary"
         app:fabSize="normal"
         android:id="@+id/add_new"
-        android:src="@android:drawable/ic_input_add"
+        android:src="@drawable/ic_add_white_48dp"
         android:layout_gravity="bottom|right|end"
         android:layout_height="wrap_content"
         />
