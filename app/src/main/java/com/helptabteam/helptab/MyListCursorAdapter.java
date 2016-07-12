@@ -4,7 +4,9 @@ package com.helptabteam.helptab;
  * Created by Nimit Agg on 10-07-2016.
  */
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +57,23 @@ public class MyListCursorAdapter extends CursorRecyclerViewAdapter<MyListCursorA
         viewHolder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.getContentResolver().delete(QuoteProvider.Quotes.CONTENT_URI,QuoteColumns._ID + " = ?",new String[]{cursor.getString(cursor.getColumnIndex("_id"))});
+                new AlertDialog.Builder(context)
+                        .setTitle("Delete entry")
+                        .setMessage("Are you sure you want to delete this Healthtab ?")
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                                context.getContentResolver().delete(QuoteProvider.Quotes.CONTENT_URI,QuoteColumns._ID + " = ?",new String[]{cursor.getString(cursor.getColumnIndex("_id"))});
+
+                            }
+                        })
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(R.drawable.logo454)
+                        .show();
             }
         });
     }
