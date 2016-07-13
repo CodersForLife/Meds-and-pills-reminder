@@ -8,18 +8,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class AddNewDescription extends AppCompatActivity {
-    private EditText title,description;
+
+    @NotEmpty
+        private EditText title,description;
     private Button save;
     private TextView date,time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_description);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.iconslogo);
         title= (EditText) findViewById(R.id.title);
         description= (EditText) findViewById(R.id.decription);
         save= (Button) findViewById(R.id.save);

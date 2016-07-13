@@ -25,7 +25,8 @@
         <activity android:name=".EmergencyContact" />
         <activity android:name=".HomeActivity"
             android:label="  HelpTab"/>
-        <activity android:name=".AddNewDescription"></activity>
+        <activity android:name=".AddNewDescription"
+            android:label="  HelpTab"></activity>
     </application>
 
 </manifest>
