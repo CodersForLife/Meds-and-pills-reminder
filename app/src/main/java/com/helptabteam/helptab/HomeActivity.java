@@ -1,6 +1,8 @@
 package com.helptabteam.helptab;
 
+import android.app.AlarmManager;
 import android.app.LoaderManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -19,6 +21,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class HomeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     FloatingActionButton add;
     private RecyclerView recyclerView;
@@ -30,6 +35,9 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+      //  NotificationFunction();
+
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.iconslogo);
         recyclerView= (RecyclerView) findViewById(R.id.card);
@@ -39,13 +47,14 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         add= (FloatingActionButton) findViewById(R.id.add_new);
+
         Cursor cursor=getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,null,null,null,null);
         getLoaderManager().initLoader(0, null, this);
-        /*ContentValues contentValues=new ContentValues();
+        ContentValues contentValues=new ContentValues();
         contentValues.put(QuoteColumns.TITLE, "Fever Medicine For Dad");
         contentValues.put(QuoteColumns.DESCRIPTION,"Monday and Sumday 3 times a day");
-        contentValues.put(QuoteColumns.START,"Daily dosage-Started from: 8th Jul,2016");
-        getContentResolver().insert(QuoteProvider.Quotes.CONTENT_URI,contentValues);*/
+        contentValues.put(QuoteColumns.START,"15:31:00");
+        getContentResolver().insert(QuoteProvider.Quotes.CONTENT_URI,contentValues);
         //if(cursor.getCount()>0) {
             myListCursorAdapter = new MyListCursorAdapter(this, cursor);
             recyclerView.setAdapter(myListCursorAdapter);
@@ -59,6 +68,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
     }
+
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {

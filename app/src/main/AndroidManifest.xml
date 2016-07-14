@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.helptabteam.helptab">
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
@@ -23,6 +24,9 @@
             android:authorities="com.helptabteam.helptab.QuoteProvider" />
 
         <activity android:name=".EmergencyContact" />
+
+        <receiver android:name="com.helptabteam.helptab.Notificationmassage"></receiver>
+
         <activity android:name=".HomeActivity"
             android:label="  HelpTab"/>
         <activity android:name=".AddNewDescription"

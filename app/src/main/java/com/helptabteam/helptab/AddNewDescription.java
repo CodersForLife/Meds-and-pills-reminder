@@ -36,13 +36,14 @@ public class AddNewDescription extends AppCompatActivity {
         SimpleDateFormat ti=new SimpleDateFormat("h:mm a");
         date.setText(date.getText()+" "+df.format(c.getTime()));
         time.setText(time.getText()+" "+ti.format(c.getTime()));
+        final SimpleDateFormat time2=new SimpleDateFormat("hh:mm:ss");
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(QuoteColumns.TITLE, title.getText().toString());
                 contentValues.put(QuoteColumns.DESCRIPTION,description.getText().toString());
-                contentValues.put(QuoteColumns.START,"Daily dosage-Started from: "+df.format(c.getTime()));
+                contentValues.put(QuoteColumns.START,""+time2.format(c.getTime()));
                 getContentResolver().insert(QuoteProvider.Quotes.CONTENT_URI,contentValues);
                 finish();
             }

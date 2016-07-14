@@ -53,7 +53,7 @@ public class MyListCursorAdapter extends CursorRecyclerViewAdapter<MyListCursorA
         //MyListItem myListItem = MyListItem.fromCursor(cursor);
         viewHolder.title.setText(cursor.getString(cursor.getColumnIndex("title")));
         viewHolder.description.setText(cursor.getString(cursor.getColumnIndex("description")));
-        viewHolder.dosage.setText(cursor.getString(cursor.getColumnIndex("start")));
+        viewHolder.dosage.setText("Daily dosage-Started from: "+cursor.getString(cursor.getColumnIndex("start")));
         viewHolder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
