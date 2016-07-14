@@ -30,6 +30,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
     private LinearLayoutManager linearLayoutManager;
     private Cursor mCursor;
     private TextView textView;
+    private Menu menu;
     private MyListCursorAdapter myListCursorAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +83,7 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         mCursor=data;
         if(myListCursorAdapter.getItemCount()==0){
             textView.setVisibility(View.VISIBLE);
-            textView.setText("Add new HEALTHTAB");
+            textView.setText("Add new HELPTAB");
         }
         else
             textView.setVisibility(View.GONE);
@@ -99,6 +100,18 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         return true;
     }
 
+
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem menuItem = menu.findItem(R.id.phone1);
+        MenuItem menuItem1=menu.findItem(R.id.phone2);
+        final SharedPreferences sp=getSharedPreferences("Pref",MODE_PRIVATE);
+        menuItem .setTitle(sp.getString("Call: "+"name1",""));
+        menuItem1.setTitle(sp.getString("Call: "+"name2",""));
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -112,9 +125,9 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                 Intent intent = new Intent(HomeActivity.this, FirstScreen.class);
                 startActivity(intent);
                 return true;*/
-            case R.id.call:
+            case R.id.phone1:
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                final SharedPreferences sp=getSharedPreferences("Pref",MODE_PRIVATE);
+                SharedPreferences sp=getSharedPreferences("Pref",MODE_PRIVATE);
                 callIntent.setData(Uri.parse("tel:"+sp.getString("phone1","")));
                 try {
                     if(sp.getString("phone1","").equalsIgnoreCase(""))
@@ -125,6 +138,18 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
                     e.printStackTrace();
                 }
                 return true;
+            case R.id.phone2:
+                callIntent = new Intent(Intent.ACTION_DIAL);
+                sp = getSharedPreferences("Pref", MODE_PRIVATE);
+                callIntent.setData(Uri.parse("tel:"+sp.getString("phone2","")));
+                try {
+                    if(sp.getString("phone1","").equalsIgnoreCase(""))
+                        Toast.makeText(getApplicationContext(),"No number added ",Toast.LENGTH_SHORT).show();
+                    else
+                        startActivity(callIntent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 
         }
         return super.onOptionsItemSelected(item);
