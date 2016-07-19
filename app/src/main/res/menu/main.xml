@@ -8,6 +8,14 @@
         android:icon="@drawable/calldial"
         android:title="@null"
         app:showAsAction="always">
-
+        <menu>
+            <item
+                android:id="@+id/phone1"
+                android:title="Phone 1" />
+            <item
+                android:id="@+id/phone2"
+                android:title="Phone 2"
+                />
+        </menu>
     </item>
 </menu>
