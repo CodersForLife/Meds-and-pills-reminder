@@ -2,6 +2,7 @@ package com.helptabteam.helptab;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -40,94 +41,26 @@ public class MainActivity extends AppCompatActivity {
 
     private void NotificationFunction() {
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar c=Calendar.getInstance();
+        int min=c.get(Calendar.MINUTE);
 
+        if(min>=0 && min<15)
+            min=0;
+        else if(min>=15 && min<30)
+            min=15;
+        else if(min>=30 && min<45)
+            min=30;
+        else if(min>=45 && min<60)
+            min=45;
+        c.set(Calendar.MINUTE,min);
+        c.set(Calendar.SECOND,00);
 
-        SimpleDateFormat ti=new SimpleDateFormat("hh:mm:ss");
-        String time=ti.format(calendar.getTime());
-
-
-        Cursor cursor=getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,new String[]{QuoteColumns.START},null,null,null);
-        //cursor.close();
-        if(cursor.getCount()!=0){
-            cursor.moveToFirst();
-            do {
-                String databse_time=cursor.getString(cursor.getColumnIndex("start"));
-                if(time.equalsIgnoreCase(databse_time)){
-                    int hr = Integer.parseInt(databse_time.substring(0, 1));
-                    int min = Integer.parseInt(databse_time.substring(3, 4));
-                    int sec = Integer.parseInt(databse_time.substring(6, 7));
-                    cal.set(Calendar.HOUR_OF_DAY, hr);
-                    cal.set(Calendar.MINUTE, min);
-                    cal.set(Calendar.SECOND, sec);
-                    Intent intent = new Intent(this, Notificationmassage.class);
-
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
-
-                    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis() , pendingIntent);
-                }
-            }while (cursor.moveToNext());
-        }
-        cursor.close();
-
-      /*  long currentTime = b.getTime(); // Only call once, to be consistent
-        long minAbsDiff = Long.MAX_VALUE;
-        WhateverType minContainer = null;
-        for (WhateverType x : a) {
-            long abs = Math.abs(x.getTime() - currentTime);
-            if (abs < minAbsDiff) {
-                minAbsDiff = abs;
-                minContainer = x;
-            }
-        }*/
-
-     /*   long current_time=0;
-        Date date2= null;
-        try {
-            date2 = ti.parse(time);
-            current_time=date2.getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        long min=0,intermediate=0;
-
-       if(cursor.getCount()!=0){
-           cursor.moveToFirst();
-           do {
-               String date = cursor.getString(cursor.getColumnIndex("start"));
-               long database_time;
-               try {
-
-                   Date mDate=ti.parse(date);
-                   database_time=mDate.getTime();
-                   intermediate=Math.abs(current_time-database_time);
-                   if(cursor.isFirst())
-                       min=intermediate;
-                   if(min>intermediate)
-                       min=database_time;
-
-               } catch (ParseException e) {
-                   e.printStackTrace();
-               }
-
-           }while (cursor.moveToNext());
-           cursor.close();*/
-
-
-         /*  int hr = Integer.parseInt(date.substring(0, 1));
-           int min = Integer.parseInt(date.substring(3, 4));
-           int sec = Integer.parseInt(date.substring(6, 7));
-           cal.set(Calendar.HOUR_OF_DAY, hr);
-           cal.set(Calendar.MINUTE, min);
-           cal.set(Calendar.SECOND, sec);*/
-
-               //cal.setTimeInMillis(Math.abs(min));
-
-
-
-                  }
+        AlarmManager alarmManager=(AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, Notificationmassage.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(),900000,
+                pendingIntent);
+    }
 
 
     }

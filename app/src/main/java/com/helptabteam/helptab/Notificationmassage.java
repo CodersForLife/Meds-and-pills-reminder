@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.RingtoneManager;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -29,40 +30,36 @@ public class Notificationmassage extends BroadcastReceiver {
     }
 
     private void showNotification(Context context) {
-        Log.i("notification", "visible");
-        Calendar calendar = Calendar.getInstance();
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.SECOND,00);
 
         SimpleDateFormat ti=new SimpleDateFormat("hh:mm:ss");
-        String time=ti.format(calendar.getTime())+"";
+        String time=ti.format(calendar.getTime());
 
 
-       /* Cursor cursor=context.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,new String[]{QuoteColumns.TITLE},QuoteColumns.START + " = ?",new String[]{time},null);
+        Cursor cursor=context.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,new String[]{QuoteColumns.START},null,null,null);
 
-        String title;
         if(cursor.getCount()!=0){
-            title= cursor.getString(cursor.getColumnIndex("title"));
-            cursor.close();*/
-        Intent intent = new Intent(context, MainActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent, 0);
-
-        // build notification
-        // the addAction re-use the same intent to keep the example short
-        Notification n  = new Notification.Builder(context)
-                .setContentTitle("xyz")
-                .setContentText("Subject")
-                .setSmallIcon(R.drawable.iconslogo)
-                .setContentIntent(pIntent)
-                .setAutoCancel(true)
-                .build();
+            cursor.moveToFirst();
+            do {
+                String databse_time=cursor.getString(cursor.getColumnIndex("start"));
+                if(time.equalsIgnoreCase(databse_time)) {
+                    Notification n  = new Notification.Builder(context)
+                            .setContentTitle(cursor.getString(cursor.getColumnIndex("title")))
+                            .setContentText(cursor.getString(cursor.getColumnIndex("description")))
+                            .setSmallIcon(R.drawable.iconslogo)
+                            .setAutoCancel(true)
+                            .setSound( RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                            .build();
 
 
-        NotificationManager notificationManager =
-                (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+                    NotificationManager notificationManager =
+                            (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0, n);
-        //    }
-
-
+                    notificationManager.notify(0, n);
+                }}while (cursor.moveToNext());
+        }
+        cursor.close();
     }
 }
