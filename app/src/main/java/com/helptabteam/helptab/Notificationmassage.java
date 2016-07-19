@@ -34,7 +34,7 @@ public class Notificationmassage extends BroadcastReceiver {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.SECOND,00);
 
-        SimpleDateFormat ti=new SimpleDateFormat("hh:mm:ss");
+        SimpleDateFormat ti=new SimpleDateFormat("h:m:ss");
         String time=ti.format(calendar.getTime());
 
 
@@ -63,3 +63,4 @@ public class Notificationmassage extends BroadcastReceiver {
         cursor.close();
     }
 }
+

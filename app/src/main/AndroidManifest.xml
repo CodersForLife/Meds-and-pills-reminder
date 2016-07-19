@@ -20,11 +20,8 @@
         </activity>
         <provider
             android:name=".generated.QuoteProvider"
-
             android:authorities="com.helptabteam.helptab.QuoteProvider" />
-
         <activity android:name=".EmergencyContact" />
-
         <receiver android:name="com.helptabteam.helptab.Notificationmassage"></receiver>
 
         <activity android:name=".HomeActivity"
