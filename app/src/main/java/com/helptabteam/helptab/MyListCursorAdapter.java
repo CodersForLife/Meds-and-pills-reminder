@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,11 +50,13 @@ public class MyListCursorAdapter extends CursorRecyclerViewAdapter<MyListCursorA
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final Cursor cursor) {
+    public void onBindViewHolder(final ViewHolder viewHolder, Cursor cursor) {
         //MyListItem myListItem = MyListItem.fromCursor(cursor);
+        cursor.moveToPosition(viewHolder.getAdapterPosition());
         viewHolder.title.setText(cursor.getString(cursor.getColumnIndex("title")));
         viewHolder.description.setText(cursor.getString(cursor.getColumnIndex("description")));
         viewHolder.dosage.setText("Daily dosage-Started from: "+cursor.getString(cursor.getColumnIndex("start")));
+        final Cursor cur=cursor;
         viewHolder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +66,9 @@ public class MyListCursorAdapter extends CursorRecyclerViewAdapter<MyListCursorA
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with delete
-                                context.getContentResolver().delete(QuoteProvider.Quotes.CONTENT_URI,QuoteColumns._ID + " = ?",new String[]{cursor.getString(cursor.getColumnIndex("_id"))});
+                                cur.moveToPosition(viewHolder.getAdapterPosition());
+                                context.getContentResolver().delete(QuoteProvider.Quotes.CONTENT_URI,QuoteColumns.TITLE + " = ?",new String[]{cur.getString(cur.getColumnIndex("title"))});
+                                Log.e("ko",cur.getString(cur.getColumnIndex("title")));
 
                             }
                         })
