@@ -117,11 +117,16 @@
             android:padding="5dp"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
             <RadioButton
                 android:layout_width="wrap_content"
                 android:text="Daily"
                 android:id="@+id/daily"
                 android:textSize="20sp"
+                android:checked="true"
                 android:layout_marginRight="10dp"
                 android:layout_height="wrap_content" />
             <RadioButton
@@ -138,6 +143,7 @@
                 android:layout_marginRight="10dp"
                 android:textSize="20sp"
                 android:layout_height="wrap_content" />
+            </RadioGroup>
         </LinearLayout>
 
     </LinearLayout>

@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,8 +14,10 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by dell on 7/13/2016.
@@ -38,13 +41,16 @@ public class Notificationmassage extends BroadcastReceiver {
         String time=ti.format(calendar.getTime());
 
 
-        Cursor cursor=context.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,new String[]{QuoteColumns.START},null,null,null);
+        Cursor cursor=context.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,new String[]{QuoteColumns._ID,QuoteColumns.START,QuoteColumns.DATE,QuoteColumns.INTERVAL},null,null,null);
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String current_date = df.format(c.getTime());
 
         if(cursor.getCount()!=0){
             cursor.moveToFirst();
             do {
                 String databse_time=cursor.getString(cursor.getColumnIndex("start"));
-                if(time.equalsIgnoreCase(databse_time)) {
+                if(time.equalsIgnoreCase(databse_time) && cursor.getString(cursor.getColumnIndex("date")).equalsIgnoreCase(current_date)) {
                     Notification n  = new Notification.Builder(context)
                             .setContentTitle(cursor.getString(cursor.getColumnIndex("title")))
                             .setContentText(cursor.getString(cursor.getColumnIndex("description")))
@@ -52,8 +58,24 @@ public class Notificationmassage extends BroadcastReceiver {
                             .setAutoCancel(true)
                             .setSound( RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                             .build();
+                    String date=cursor.getString(cursor.getColumnIndex("date"));
+                    Date se = null;
+                    try {
+                        se=new SimpleDateFormat("dd-MMM-yyyy").parse(date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    c.setTime(se);
+                    if(cursor.getInt(cursor.getColumnIndex("interval"))==1)
+                        c.add(Calendar.DATE,1);
+                    else if(cursor.getInt(cursor.getColumnIndex("interval"))==7)
+                        c.add(Calendar.DATE,7);
+                    else
+                        c.add(Calendar.MONTH,1);
 
-
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(QuoteColumns.DATE,df.format(c.getTime())+"");
+                    context.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI,contentValues,QuoteColumns.TITLE+" = ?",new String[]{cursor.getInt(cursor.getColumnIndex("_id"))+""});
                     NotificationManager notificationManager =
                             (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 
