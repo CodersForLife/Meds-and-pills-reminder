@@ -27,4 +27,10 @@ public class QuoteColumns {
     @DataType(DataType.Type.TEXT)
     @NotNull
     public static final String START = "start";
+    @NotNull
+    public static final String DATE = "date";
+    @NotNull
+    @DataType(DataType.Type.INTEGER)
+    public static final String INTERVAL = "interval";
+
 }

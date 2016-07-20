@@ -89,6 +89,7 @@ public class EmergencyContact extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(EmergencyContact.this,HomeActivity.class));
+                finish();
             }
         });
     }

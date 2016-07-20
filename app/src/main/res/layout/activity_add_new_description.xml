@@ -98,6 +98,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20dp"
             android:text="Pick Time"
             android:onClick="showTimePickerDialog" />
 </LinearLayout>
@@ -111,14 +112,33 @@
             android:textAlignment="center"
             android:textSize="20dp"/>
 
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
             android:padding="5dp"
-            android:background="@android:color/transparent"
-            android:paddingLeft="5dp"
-            android:text="Daily"/>
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:text="Daily"
+                android:id="@+id/daily"
+                android:textSize="20sp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:text="Weekly"
+                android:id="@+id/weekly"
+                android:layout_marginRight="10dp"
+                android:textSize="20sp"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:text="Monthly"
+                android:id="@+id/monthly"
+                android:layout_marginRight="10dp"
+                android:textSize="20sp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
     </LinearLayout>
 

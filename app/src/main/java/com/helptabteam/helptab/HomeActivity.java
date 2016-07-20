@@ -51,11 +51,11 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
 
         Cursor cursor=getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,null,null,null,null);
         getLoaderManager().initLoader(0, null, this);
-        ContentValues contentValues=new ContentValues();
+       /* ContentValues contentValues=new ContentValues();
         contentValues.put(QuoteColumns.TITLE, "Testing By Piyush");
         contentValues.put(QuoteColumns.DESCRIPTION,"Monday and Sumday 3 times a day");
         contentValues.put(QuoteColumns.START,"09:53:00");
-        getContentResolver().insert(QuoteProvider.Quotes.CONTENT_URI,contentValues);
+        getContentResolver().insert(QuoteProvider.Quotes.CONTENT_URI,contentValues);*/
         //if(cursor.getCount()>0) {
             myListCursorAdapter = new MyListCursorAdapter(this, cursor);
             recyclerView.setAdapter(myListCursorAdapter);
