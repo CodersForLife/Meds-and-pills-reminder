@@ -22,7 +22,7 @@ public class AddNewDescription extends AppCompatActivity {
         private EditText title,description;
     private Button save;
     public static int hour,min;
-    private TextView date,time;
+    public static TextView date,time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +36,21 @@ public class AddNewDescription extends AppCompatActivity {
         time = (TextView) findViewById(R.id.time);
         final Calendar c = Calendar.getInstance();
         final SimpleDateFormat df = new SimpleDateFormat("dd MMM,yyyy", Locale.ENGLISH);
-        SimpleDateFormat ti = new SimpleDateFormat("h:mm a");
+        SimpleDateFormat ti = new SimpleDateFormat("HH:mm");
         date.setText(date.getText() + " " + df.format(c.getTime()));
-        time.setText(time.getText() + " " + ti.format(c.getTime()));
+        //time.setText(time.getText() + " " + ti.format(c.getTime()));
+        //final Calendar c = Calendar.getInstance();
+        hour = c.get(Calendar.HOUR_OF_DAY);
+        min = c.get(Calendar.MINUTE);
+        if(min>=0 && min<15)
+            min=0;
+        else if(min>=15 && min<30)
+            min=15;
+        else if(min>=30 && min<45)
+            min=30;
+        else if(min>=45 && min<60)
+            min=45;
+        time.setText("Time: " + hour + ":"+ min);
         final SimpleDateFormat time2 = new SimpleDateFormat("hh:mm:ss");
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +58,7 @@ public class AddNewDescription extends AppCompatActivity {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(QuoteColumns.TITLE, title.getText().toString());
                 contentValues.put(QuoteColumns.DESCRIPTION, description.getText().toString());
-                contentValues.put(QuoteColumns.START, "" + hour+":"+min+":"+":00");
+                contentValues.put(QuoteColumns.START, "" + hour+":"+min+":"+"00");
                 getContentResolver().insert(QuoteProvider.Quotes.CONTENT_URI, contentValues);
                 finish();
             }

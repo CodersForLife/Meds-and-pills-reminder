@@ -59,7 +59,7 @@ public class MyListCursorAdapter extends CursorRecyclerViewAdapter<MyListCursorA
             public void onClick(View v) {
                 new AlertDialog.Builder(context)
                         .setTitle("Delete entry")
-                        .setMessage("Are you sure you want to delete this Healthtab ?")
+                        .setMessage("Are you sure you want to delete this HelpTab ?")
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with delete

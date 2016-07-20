@@ -23,7 +23,6 @@
             android:authorities="com.helptabteam.helptab.QuoteProvider" />
         <activity android:name=".EmergencyContact" />
         <receiver android:name="com.helptabteam.helptab.Notificationmassage"></receiver>
-
         <activity android:name=".HomeActivity"
             android:label="  HelpTab"/>
         <activity android:name=".AddNewDescription"
