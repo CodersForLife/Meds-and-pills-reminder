@@ -50,7 +50,7 @@ public class Notificationmassage extends BroadcastReceiver {
             cursor.moveToFirst();
             do {
                 String databse_time=cursor.getString(cursor.getColumnIndex("start"));
-                if(time.equalsIgnoreCase(databse_time) && cursor.getString(cursor.getColumnIndex("date")).equalsIgnoreCase(current_date)) {
+                if(time.equalsIgnoreCase(databse_time) /*&& cursor.getString(cursor.getColumnIndex("date")).equalsIgnoreCase(current_date)*/) {
                     Notification n  = new Notification.Builder(context)
                             .setContentTitle(cursor.getString(cursor.getColumnIndex("title")))
                             .setContentText(cursor.getString(cursor.getColumnIndex("description")))

@@ -77,8 +77,8 @@ public class AddNewDescription extends AppCompatActivity {
                 Calendar c = Calendar.getInstance();
                 System.out.println("Current time => " + c.getTime());
 
-                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-                String current_date = df.format(c.getTime());
+                SimpleDateFormat tim = new SimpleDateFormat("dd-MMM-yyyy");
+                String current_date = tim.format(c.getTime());
 
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(QuoteColumns.TITLE, title.getText().toString());

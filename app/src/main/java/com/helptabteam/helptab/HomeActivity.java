@@ -107,8 +107,8 @@ public class HomeActivity extends AppCompatActivity implements LoaderManager.Loa
         MenuItem menuItem = menu.findItem(R.id.phone1);
         MenuItem menuItem1=menu.findItem(R.id.phone2);
         final SharedPreferences sp=getSharedPreferences("Pref",MODE_PRIVATE);
-        menuItem .setTitle(sp.getString("Call: "+"name1",""));
-        menuItem1.setTitle(sp.getString("Call: "+"name2",""));
+        menuItem .setTitle("Call: "+sp.getString("name1","No Name"));
+        menuItem1.setTitle("Call: "+sp.getString("name2","No Name"));
         return super.onPrepareOptionsMenu(menu);
     }
 
