@@ -51,14 +51,14 @@ public class AddNewDescription extends AppCompatActivity {
         date.setText(date.getText() + " " + df.format(c.getTime()));
         hour = c.get(Calendar.HOUR_OF_DAY);
         min = c.get(Calendar.MINUTE);
-        if(min>=0 && min<15)
+       /* if(min>=0 && min<15)
             min=0;
         else if(min>=15 && min<30)
             min=15;
         else if(min>=30 && min<45)
             min=30;
         else if(min>=45 && min<60)
-            min=45;
+            min=45;*/
  //       time.setText("Time: " + hour + ":"+ min);
         final SimpleDateFormat time2 = new SimpleDateFormat("hh:mm:ss");
 
@@ -84,6 +84,7 @@ public class AddNewDescription extends AppCompatActivity {
                 contentValues.put(QuoteColumns.TITLE, title.getText().toString());
                 contentValues.put(QuoteColumns.DESCRIPTION, description.getText().toString());
                 contentValues.put(QuoteColumns.START, "" + hour+":"+min+":"+"00");
+                Log.e("saved time",hour+":"+min+":"+"00");
                 contentValues.put(QuoteColumns.DATE,current_date);
                 contentValues.put(QuoteColumns.INTERVAL,interval);
                 getContentResolver().insert(QuoteProvider.Quotes.CONTENT_URI, contentValues);

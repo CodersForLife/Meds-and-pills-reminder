@@ -40,8 +40,8 @@ public class Notificationmassage extends BroadcastReceiver {
         SimpleDateFormat ti=new SimpleDateFormat("HH:mm:ss");
         String time=ti.format(calendar.getTime());
 
-
-        Cursor cursor=context.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,new String[]{QuoteColumns._ID,QuoteColumns.START,QuoteColumns.DATE,QuoteColumns.INTERVAL},null,null,null);
+        Log.e("notification time",time);
+        Cursor cursor=context.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,new String[]{QuoteColumns._ID,QuoteColumns.START,QuoteColumns.DATE,QuoteColumns.INTERVAL,QuoteColumns.TITLE,QuoteColumns.DESCRIPTION},null,null,null);
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String current_date = df.format(c.getTime());
@@ -50,7 +50,8 @@ public class Notificationmassage extends BroadcastReceiver {
             cursor.moveToFirst();
             do {
                 String databse_time=cursor.getString(cursor.getColumnIndex("start"));
-                if(time.equalsIgnoreCase(databse_time) /*&& cursor.getString(cursor.getColumnIndex("date")).equalsIgnoreCase(current_date)*/) {
+                Log.e("database time", databse_time);
+                if(time.equalsIgnoreCase(databse_time) && cursor.getString(cursor.getColumnIndex("date")).equalsIgnoreCase(current_date)) {
                     Notification n  = new Notification.Builder(context)
                             .setContentTitle(cursor.getString(cursor.getColumnIndex("title")))
                             .setContentText(cursor.getString(cursor.getColumnIndex("description")))
