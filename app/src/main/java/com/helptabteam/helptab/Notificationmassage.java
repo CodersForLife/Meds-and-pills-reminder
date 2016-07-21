@@ -37,7 +37,7 @@ public class Notificationmassage extends BroadcastReceiver {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.SECOND,00);
 
-        SimpleDateFormat ti=new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat ti=new SimpleDateFormat("HH:m:ss");
         String time=ti.format(calendar.getTime());
 
         Log.e("notification time",time);
@@ -45,12 +45,13 @@ public class Notificationmassage extends BroadcastReceiver {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String current_date = df.format(c.getTime());
-
+        Log.e("Notfication Date",current_date);
         if(cursor.getCount()!=0){
             cursor.moveToFirst();
             do {
                 String databse_time=cursor.getString(cursor.getColumnIndex("start"));
                 Log.e("database time", databse_time);
+                Log.e("database date", cursor.getString(cursor.getColumnIndex("date")));
                 if(time.equalsIgnoreCase(databse_time) && cursor.getString(cursor.getColumnIndex("date")).equalsIgnoreCase(current_date)) {
                     Notification n  = new Notification.Builder(context)
                             .setContentTitle(cursor.getString(cursor.getColumnIndex("title")))
@@ -76,7 +77,7 @@ public class Notificationmassage extends BroadcastReceiver {
 
                     ContentValues contentValues = new ContentValues();
                     contentValues.put(QuoteColumns.DATE,df.format(c.getTime())+"");
-                    context.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI,contentValues,QuoteColumns.TITLE+" = ?",new String[]{cursor.getInt(cursor.getColumnIndex("_id"))+""});
+                    context.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI,contentValues,QuoteColumns._ID+" = ?",new String[]{cursor.getInt(cursor.getColumnIndex("_id"))+""});
                     NotificationManager notificationManager =
                             (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 
